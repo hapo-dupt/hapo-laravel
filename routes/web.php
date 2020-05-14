@@ -20,3 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Xử lí login
+Route::post('/login', function () {
+    echo 123;
+})->name('abc');
+
+// test
+use App\Models\Tasks;
+Route::get('/test', function () {
+    $data = new Tasks();
+    echo count($data->members());
+})->name('abc');
