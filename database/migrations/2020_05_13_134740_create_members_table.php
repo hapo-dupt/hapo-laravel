@@ -21,13 +21,12 @@ class CreateMembersTable extends Migration
             $table->string('full_name')->nullable();
             $table->string('email');
             $table->text('image')->nullable();
-            $table->string('gender');
+            $table->tinyInteger('gender');
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->integer('project_id');
             $table->tinyInteger('status')->default(0);
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

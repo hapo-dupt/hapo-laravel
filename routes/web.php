@@ -20,14 +20,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-// Xử lí login
-Route::post('/login', function () {
-    echo 123;
-})->name('abc');
-
-// test
-//use App\Models\Project;
-////Route::get('/test', function () {
-////    echo Project::with('tasks')->get();
-////})->name('abc');

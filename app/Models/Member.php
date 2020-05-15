@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Project;
 
 class Member extends Model
 {
     public function members()
     {
-        return $this->hasOne('App\Models\Project', 'member_id', 'id');
+        return $this->hasOne(Project::Class);
     }
 
     public function tasks()
