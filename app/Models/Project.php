@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Member;
+use App\Models\Task;
 
 class Project extends Model
 {
     public function projects()
     {
-        return $this->belongsToMany('App\Models\Member', 'id', 'project_id');
+        return $this->belongsToMany(Member::Class);
     }
 
     public function tasks()
     {
-        return $this->hasMany('App\Models\Task', 'project_id', 'id');
+        return $this->hasMany(Task::Class);
     }
 }

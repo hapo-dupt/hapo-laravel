@@ -7,7 +7,7 @@ use App\Models\Project;
 
 class Customer extends Model
 {
-    public function customers()
+    public function projects()
     {
         return $this->hasMany(Project::Class);
     }

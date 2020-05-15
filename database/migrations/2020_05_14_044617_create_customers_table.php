@@ -18,7 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('full_name')->nullable();
             $table->text('image')->nullable();
             $table->string('phone')->nullable();
-            $table->tinyInteger('gender');
+            $table->tinyInteger('gender')->default(0);
             $table->text('address')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
