@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('customer_id');
+            $table->integer('member_id');
             $table->tinyInteger('status')->default(0);
             $table->date('begin_at')->nullable();
             $table->date('finish_at')->nullable();

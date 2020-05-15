@@ -27,8 +27,7 @@ Route::post('/login', function () {
 })->name('abc');
 
 // test
-use App\Models\Tasks;
-Route::get('/test', function () {
-    $data = new Tasks();
-    echo count($data->members());
-})->name('abc');
+//use App\Models\Project;
+////Route::get('/test', function () {
+////    echo Project::with('tasks')->get();
+////})->name('abc');
