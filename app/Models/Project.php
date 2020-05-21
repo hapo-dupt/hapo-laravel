@@ -8,7 +8,8 @@ use App\Models\Task;
 
 class Project extends Model
 {
-    public function projects()
+
+    public function members()
     {
         return $this->belongsToMany(Member::Class);
     }
@@ -16,5 +17,10 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany(Task::Class);
+    }
+
+    public function customers()
+    {
+        return $this->belongsTo(Customer::Class);
     }
 }

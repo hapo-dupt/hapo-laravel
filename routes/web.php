@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,36 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/login', 'HandleController@login')->name('logins');
+
+Route::post('/register', 'HandleController@registration')->name('registers');
+
+Route::get('/logout', 'HandleController@logout')->name('logout');
+
+/*
+ * Member Route Management
+ */
+Route::middleware(['member'])->group(function () {
+    Route::get('/members', 'MemberController@dashboard')->name('members');
+
+    Route::get('/members/manage-project', 'MemberController@projects')->name('projects');
+
+    Route::get('/members/{id}/detail-project', 'MemberController@detailProjects')->name('member.project_detail');
+
+    Route::get('/members/tasks', 'MemberController@tasks')->name('tasks');
+
+    Route::get('/members/{project_id}/manage-tasks', 'MemberController@manageTasks')->name('member.manage_tasks');
+
+    Route::post('/members/completed-tasks', 'MemberController@completedTasks')->name('member.completed_tasks');
+
+    Route::get('/members/member-profile', 'HandleController@profiles')->name('member.profiles');
+
+    Route::post('/members/change-profile', 'HandleController@changeProfiles')->name('member.change_profiles');
+});
+/*
+ * Admin Route Management
+ */
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin', 'AdminController@dashboard')->name('admin');
+});
