@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[a-zA-Z ]+$/|max:50',
+            'full_name' => 'required|regex:/^[a-zA-Z ]+$/|max:50',
             'email' => 'required|email|unique:members',
             'gender' => 'required',
             'username' => 'required|max:25|unique:members',
@@ -37,9 +37,9 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name is required!',
-            'name.regex' => 'Name is only included alphabets! Example: John Wick',
-            'name.max' => 'Name only have maximize 50 characters!',
+            'full_name.required' => 'Name is required!',
+            'full_name.regex' => 'Name is only included alphabets! Example: John Wick',
+            'full_name.max' => 'Name only have maximize 50 characters!',
             'email.required' => 'Email is required!',
             'email.email' => 'You must be enter correct email!',
             'gender.required' => 'Name is required!',

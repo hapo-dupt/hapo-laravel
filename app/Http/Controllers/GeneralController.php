@@ -49,13 +49,8 @@ class GeneralController extends Controller
      */
     public function registration(RegisterRequest $request)
     {
-        Member::create([
-            'full_name' => $request->name,
-            'email' => $request->email,
-            'gender' => $request->gender,
-            'username' => $request->username,
-            'password' => bcrypt($request->password)
-        ]);
+        $data = $request->all();
+        Member::create($data);
 
         return redirect('register')->with('success', trans('message.registerSuccess'));
     }
