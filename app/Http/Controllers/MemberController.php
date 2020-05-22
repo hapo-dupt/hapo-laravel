@@ -103,7 +103,8 @@ class MemberController extends Controller
      */
     public function completedTasks(Request $request)
     {
-        Task::where('id', $request->TaskId)->update(['status' => Member::STATUS_CLOSE]);
+
+        Task::findorFail($request->id)->update(['status' => Member::STATUS_CLOSE]);
         return redirect()->back()->with('success', trans('message.taskSuccess'));
     }
 }

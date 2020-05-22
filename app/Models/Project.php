@@ -8,6 +8,9 @@ use App\Models\Task;
 
 class Project extends Model
 {
+    protected $fillable = [
+        'title', 'description', 'customers_id', 'status', 'begin_at', 'finish_at'
+    ];
 
     public function members()
     {

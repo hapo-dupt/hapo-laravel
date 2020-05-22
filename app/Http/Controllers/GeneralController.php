@@ -6,7 +6,6 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Member;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
@@ -81,15 +80,11 @@ class GeneralController extends Controller
         $data['password'] = bcrypt($request->password);
         $oldImage = Member::find($request->id)->image;
         unset($data['repassword']);
-        if (in_array('image', $data)) {
-            if ($data['image'] != null && $data['password'] == null) {
-                $storageFile = Storage::put('public/images/', $data['image']);
-                $data['image'] = basename($storageFile);
-                Storage::delete('public/images/'.$oldImage.'.jpeg');
-                unset($data['password']);
-            } elseif ($data['image'] == null && $data['password'] != null) {
-                unset($data['image']);
-            } else {
+        if (array_key_exists('image', $data)) {
+            $storageFile = Storage::put('public/images/', $data['image']);
+            $data['image'] = basename($storageFile);
+            Storage::delete('public/images/'.$oldImage);
+            while ($data['password'] == null) {
                 unset($data['password']);
             }
         } else {
@@ -98,7 +93,7 @@ class GeneralController extends Controller
             }
         }
 
-        Member::where('id', '=', $request->id)->update($data);
+        Member::findOrFail($request->id)->update($data);
         return redirect()->back()->with('success', trans('message.profileSuccess'));
     }
 

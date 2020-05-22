@@ -95,7 +95,7 @@
                     <form method="POST" action="{{ route('member.completed_tasks') }}">
                         @csrf
                         <div class="modal-data">
-                            <input type="text" name="TaskId" id="TaskId" value="" hidden/>
+                            <input type="text" name="id" id="TaskId" value="" hidden/>
                             <input type="text" name="projects" id="projects" value="" hidden/>
                         </div>
 
