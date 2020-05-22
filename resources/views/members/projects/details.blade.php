@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
                             <div class="row">
-                                @foreach($data as $time)
+                                @foreach($contentProject['projectDetail'] as $time)
                                 <div class="col-12 col-sm-4">
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
@@ -61,7 +61,7 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <span class="info-box-text text-center text-muted">Process</span>
-                                            <span class="info-box-number text-center text-muted mb-0">{{ $process }}%</span>
+                                            <span class="info-box-number text-center text-muted mb-0">{{ $contentProject['process'] }}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -69,13 +69,13 @@
                             <div class="row">
                                 <div class="col-12">
                                     <h4>Projects Details</h4>
-                                    @foreach($data as $projects_data)
+                                    @foreach($contentProject['projectDetail'] as $projectsData)
                                     <div class="post">
                                         <div class="mb-2">
                                             <strong>Title Project</strong>
                                         </div>
                                         <p>
-                                            {{ $projects_data->title }}
+                                            {{ $projectsData->title }}
                                         </p>
                                     </div>
 
@@ -84,7 +84,7 @@
                                             <strong>Project Description</strong>
                                         </div>
                                         <p>
-                                            {{ $projects_data->description }}
+                                            {{ $projectsData->description }}
                                         </p>
                                     </div>
                                     @endforeach
@@ -96,10 +96,10 @@
                             <br>
                             <div class="text-muted">
                                 <p class="text-sm">Customer
-                                    <b class="d-block">{{ $customer->full_name }}</b>
+                                    <b class="d-block">{{ $contentProject['customer']->full_name }}</b>
                                 </p>
                                 <p class="text-sm">Team members
-                                    @foreach($member as $value)
+                                    @foreach($contentProject['member'] as $value)
                                         @if($value->full_name != auth()->guard('member')->user()->full_name)
                                             <b class="d-block mb-2">- &nbsp {{ $value->full_name }}</b>
                                         @else

@@ -55,25 +55,21 @@ class MemberController extends Controller
         $allTask = Task::all()->where('project_id', '=', $id)->count();
         $taskFinished = Task::all()->where('project_id', '=', $id)
                                    ->where('status', '=', Member::STATUS_CLOSE)->count();
-        $projects = Member::all()->where('project_id', '=', $id);
-        $data = Project::all()->where('id', '=', $id);
+        $projectDetail = Project::all()->where('id', '=', $id);
         $customer = Project::find($id)->customers;
         $member = Project::find($id)->members;
-        if ($allTask != null && $taskFinished != null) {
+        if ($allTask && $taskFinished != null) {
             $process = number_format(($taskFinished / $allTask) * 100, 1, '.', ',');
         } else {
             $process = 0;
         }
-        return view(
-            'members.projects.details',
-            [
-                'process' => $process,
-                'projects' => $projects,
-                'data' => $data,
-                'customer' => $customer,
-                'member' => $member
-            ]
+        $contentProject = array(
+            'process' => $process,
+            'projectDetail' => $projectDetail,
+            'customer' => $customer,
+            'member' => $member
         );
+        return view('members.projects.details')->with('contentProject', $contentProject);
     }
 
     /**
@@ -81,8 +77,8 @@ class MemberController extends Controller
      */
     public function selectTasks()
     {
-        $data = $this->dataProjects();
-        return view('members.tasks.index', ['projects' => $data]);
+        $listProject = $this->dataProjects();
+        return view('members.tasks.index', ['listProject' => $listProject]);
     }
 
     /**
@@ -103,7 +99,6 @@ class MemberController extends Controller
      */
     public function completedTasks(Request $request)
     {
-
         Task::findorFail($request->id)->update(['status' => Member::STATUS_CLOSE]);
         return redirect()->back()->with('success', trans('message.taskSuccess'));
     }

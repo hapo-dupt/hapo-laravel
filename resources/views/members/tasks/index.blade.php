@@ -32,7 +32,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($projects as $value)
+                                    @foreach($listProject as $value)
                                         <tr>
                                             <td>{{ $value->project_id }}</td>
                                             <td>{{ $value->title }}</td>

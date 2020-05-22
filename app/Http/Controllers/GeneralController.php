@@ -32,7 +32,7 @@ class GeneralController extends Controller
                 if ($status === Member::STATUS_ACTIVE) {
                     return redirect('members');
                 } else {
-                    return redirect()->back()->with('warning', trans('message.activeWarning'));
+                    return redirect('login')->with('warning', trans('message.activeWarning'));
                 }
             } else {
                 return redirect('login')->with('warning', trans('message.loginReport'));
@@ -79,17 +79,9 @@ class GeneralController extends Controller
             $storageFile = Storage::put('public/images/', $data['image']);
             $data['image'] = basename($storageFile);
             Storage::delete('public/images/'.$oldImage);
-            while ($data['password'] == null) {
-                unset($data['password']);
-            }
-        } else {
-            while ($data['password'] == null) {
-                unset($data['password']);
-            }
         }
-
         Member::findOrFail($request->id)->update($data);
-        return redirect()->back()->with('success', trans('message.profileSuccess'));
+        return redirect('members/member-profile')->with('success', trans('message.profileSuccess'));
     }
 
     /**
