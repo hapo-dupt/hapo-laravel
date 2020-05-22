@@ -20,10 +20,10 @@ class AdminMiddleware
     {
         if (Auth::guard('member')->check()) {
             $user = Auth::guard('member')->user();
-            if ($user->role == (new Member())->role_admin) {
+            if ($user->role == Member::ROLE_ADMIN) {
                 return $next($request);
             } else {
-                if ($user->role === (new Member())->role_member) {
+                if ($user->role === Member::ROLE_MEMBER) {
                     return redirect('members');
                 } else {
                     return redirect('login');

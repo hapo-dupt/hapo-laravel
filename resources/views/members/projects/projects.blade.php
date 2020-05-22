@@ -51,7 +51,7 @@
                                         <td>{{ date('H:i d-m-Y', strtotime($value->begin_at)) }}</td>
                                         <td>{{ date('H:i d-m-Y', strtotime($value->finish_at)) }}</td>
                                         <td>
-                                            <a href="{{ route('member.project_detail', $value->id) }}" class="btn btn-success">view</a>
+                                            <a href="{{ route('member.project_details', $value->id) }}" class="btn btn-success">view</a>
                                         </td>
                                     </tr>
                                     @endforeach

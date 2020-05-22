@@ -52,18 +52,15 @@ class MemberController extends Controller
      */
     public function detailProjects($id)
     {
-        $all_task = Task::all()->where('project_id', '=', $id)->count();
-        $task_finished = Task::all()->where('project_id', '=', $id)
-                                                 ->where('status', '=',(new Member())->status_close)
-                                                 ->count();
-        $projects = Member::all()
-                ->where('project_id', '=', $id);
+        $allTask = Task::all()->where('project_id', '=', $id)->count();
+        $taskFinished = Task::all()->where('project_id', '=', $id)
+                                   ->where('status', '=', Member::STATUS_CLOSE)->count();
+        $projects = Member::all()->where('project_id', '=', $id);
         $data = Project::all()->where('id', '=', $id);
         $customer = Project::find($id)->customers;
         $member = Project::find($id)->members;
-        //dd($member);
-        if ($all_task != null && $task_finished != null) {
-            $process = number_format(($task_finished / $all_task) * 100, 1, '.', ',');
+        if ($allTask != null && $taskFinished != null) {
+            $process = number_format(($taskFinished / $allTask) * 100, 1, '.', ',');
         } else {
             $process = 0;
         }
@@ -82,7 +79,7 @@ class MemberController extends Controller
     /**
      * Select Projects to preview tasks.
      */
-    public function tasks()
+    public function selectTasks()
     {
         $data = $this->dataProjects();
         return view('members.tasks.index', ['projects' => $data]);
@@ -90,13 +87,13 @@ class MemberController extends Controller
 
     /**
      * Manage tasks list with project.
-     * @param $project_id
+     * @param $id
      * @return Factory|View
      */
-    public function manageTasks($project_id)
+    public function manageTasks($id)
     {
-        $data = Task::all()->where('project_id', $project_id)->where('member_id', $this->idMember());
-        return view('members.tasks.tasks', ['data' => $data, 'project_id' => $project_id]);
+        $data = Task::all()->where('project_id', $id)->where('member_id', $this->idMember());
+        return view('members.tasks.tasks', ['data' => $data, 'id' => $id]);
     }
 
     /**
@@ -106,7 +103,7 @@ class MemberController extends Controller
      */
     public function completedTasks(Request $request)
     {
-        Task::where('id', $request->TaskId)->update(['status' => (new Member())->status_close]);
-        return redirect()->back()->with('success', 'You are registered completed tasks successfully!');
+        Task::where('id', $request->TaskId)->update(['status' => Member::STATUS_CLOSE]);
+        return redirect()->back()->with('success', trans('message.taskSuccess'));
     }
 }

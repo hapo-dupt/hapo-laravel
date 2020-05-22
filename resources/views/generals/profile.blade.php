@@ -38,10 +38,16 @@
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>Projects Pending</b> <a class="float-right">1,322</a>
+                                        <b>Username</b> <a class="float-right">{{ auth()->guard('member')->user()->username }}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Tasks Pending</b> <a class="float-right">543</a>
+                                        <b>Position</b> <a class="float-right">
+                                            @if(auth()->guard('member')->user()->role === \App\Models\Member::ROLE_MEMBER)
+                                                <p class="text-success">Member</p>
+                                            @else
+                                                <p class="text-danger">Admin</p>
+                                            @endif
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -78,7 +84,7 @@
                                                 <label for="inputName" class="col-sm-2 col-form-label">Full Name</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" name="id" value="{{ auth()->guard('member')->user()->id }}" hidden>
-                                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Your Full Name"
+                                                    <input type="text" name="full_name" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Your Full Name"
                                                            value="{{ auth()->guard('member')->user()->full_name }}">
                                                     @error('name')
                                                         <span class="invalid-feedback" role="alert">
@@ -104,10 +110,10 @@
                                                 <div class="col-sm-4">
                                                     <select class="form-control @error('gender') is-invalid @enderror" name="gender">
                                                         <option value="">Choose a gender</option>
-                                                        <option value="{{ auth()->guard('member')->user()->gender_male }}"
-                                                                @if(auth()->guard('member')->user()->gender === (new \App\Models\Member)->gender_male) selected @endif>Male</option>
-                                                        <option value="{{ auth()->guard('member')->user()->gender_female }}"
-                                                                @if(auth()->guard('member')->user()->gender === (new \App\Models\Member)->gender_female) selected @endif>Female</option>
+                                                        <option value="@php echo \App\Models\Member::GENDER_MALE @endphp"
+                                                                @if(auth()->guard('member')->user()->gender === \App\Models\Member::GENDER_MALE) selected @endif>Male</option>
+                                                        <option value="@php echo \App\Models\Member::GENDER_FEMALE @endphp"
+                                                                @if(auth()->guard('member')->user()->gender === \App\Models\Member::GENDER_FEMALE) selected @endif>Female</option>
                                                     </select>
                                                     @error('gender')
                                                     <span class="invalid-feedback" role="alert">
@@ -153,7 +159,8 @@
                                             <div class="form-group row">
                                                 <label for="inputName2" class="col-sm-2 col-form-label">New Password</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" id="inputEmail" placeholder="New Password">
+                                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                                                           id="inputEmail" placeholder="New Password" autocomplete="current-password">
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -164,7 +171,7 @@
                                             <div class="form-group row">
                                                 <label for="inputName2" class="col-sm-2 col-form-label">Re-Password</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="repassword" class="form-control @error('repassword') is-invalid @enderror" id="inputEmail" placeholder="Re-Password">
+                                                    <input type="password" name="repassword" class="form-control @error('repassword') is-invalid @enderror" id="inputEmail" placeholder="Re-Password">
                                                     @error('repassword')
                                                     <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

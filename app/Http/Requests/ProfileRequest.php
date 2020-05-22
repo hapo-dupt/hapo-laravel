@@ -25,12 +25,14 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[a-zA-Z ]+$/|max:50',
+            'full_name' => 'required|regex:/^[a-zA-Z ]+$/|max:50',
             'email' => 'required|email',
             'gender' => 'required',
             'phone' => 'required|numeric',
             'address' => 'required|string|max:255',
-            'image' => 'max:10000'
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'password' => 'nullable|min:3|max:10',
+            'repassword' => 'nullable|min:3|max:10|same:password'
         ];
     }
 
@@ -40,9 +42,9 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Full name is required!',
-            'name.regex' => 'You must to enter the correct format of name!',
-            'name.max' => 'Name is only maximize 50 characters of alphabet!',
+            'full_name.required' => 'Full name is required!',
+            'full_name.regex' => 'You must to enter the correct format of name!',
+            'full_name.max' => 'Name is only maximize 50 characters of alphabet!',
             'email.required' => 'Email is required!',
             'email.email' => 'Format email was not correct!',
             'gender.required' => 'Gender is required!',
@@ -51,7 +53,13 @@ class ProfileRequest extends FormRequest
             'address.required' => 'Address is required!',
             'address.string' => 'Format address was not correct!',
             'address.max' => 'Address is only maximize 255 characters!',
-            'image.max' => 'Avatar image is only maximize 10000 KB'
+            'image.max' => 'Avatar image is only maximize 2048 KB',
+            'image.mimes' => 'You are only allowed to upload image (included: jpeg,png,jpg,gif,svg)',
+            'password.min' => 'Password is required minimize 3 characters!',
+            'password.max' => 'Password is required maximize 10 characters!',
+            'repassword.min' => 'Repassword is required minimize 3 characters!',
+            'repassword.max' => 'Repassword is only maximize 10 characters!',
+            'repassword.same' => 'Repassword must to be same with password!'
         ];
     }
 }

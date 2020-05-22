@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Project;
-use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
 class Member extends Authenticatable
 {
     protected $guard = 'member';
-    public $role_admin = 1;
-    public $role_member = 0;
-    public $status_active = 1;
-    public $status_close = 0;
-    public $gender_male = 0;
-    public $gender_female = 1;
+    const ROLE_ADMIN = 1;
+    const ROLE_MEMBER = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_CLOSE = 0;
+    const GENDER_MALE = 0;
+    const GENDER_FEMALE = 1;
+    protected $fillable = [
+        'username', 'password', 'role', 'full_name', 'email', 'image', 'gender', 'phone', 'address', 'status'
+    ];
 
     public function projects()
     {

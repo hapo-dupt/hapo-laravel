@@ -48,17 +48,17 @@
                                             <td>{{ date('H:i d-m-Y', strtotime($value->begin_at)) }}</td>
                                             <td>{{ date('H:i d-m-Y', strtotime($value->finish_at)) }}</td>
                                             <td>
-                                                @if($value->status == (new \App\Models\Member())->status_active)
+                                                @if($value->status == \App\Models\Member::STATUS_ACTIVE)
                                                     <p class="alert alert-success p-1 text-center">Pending</p>
                                                 @else
                                                     <p class="alert alert-danger p-1 text-center">Completed</p>
                                                 @endif
                                             </td>
                                             <td>
-                                                @if($value->status == (new \App\Models\Member())->status_active)
+                                                @if($value->status == \App\Models\Member::STATUS_ACTIVE)
                                                     <a class="btn btn-success text-white dataClass" data-toggle="modal"
                                                        data-target="#exampleModal" data-whatever="@mdo"
-                                                       data-id="{{ $value->id }}" data-project-id="{{ $project_id }}">Complete</a>
+                                                       data-id="{{ $value->id }}" data-project-id="{{ $id }}">Complete</a>
                                                 @else
                                                     <a class="btn btn-secondary text-white" disabled>Complete</a>
                                                 @endif
@@ -117,10 +117,10 @@
     <script type="text/javascript">
         $(function () {
             $(".dataClass").click(function () {
-                var task_id_value = $(this).data('id');
-                var project_id_value = $(this).data('project-id');
-                $(".modal-data #TaskId").val(task_id_value);
-                $(".modal-data #projects").val(project_id_value);
+                var taskId = $(this).data('id');
+                var projectId = $(this).data('project-id');
+                $(".modal-data #TaskId").val(taskId);
+                $(".modal-data #projects").val(projectId);
             })
         });
     </script>
